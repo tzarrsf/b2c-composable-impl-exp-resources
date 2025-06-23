@@ -66,7 +66,7 @@ module.exports = {
             parameters: {
                 clientId: '8e90cc31-f040-4dcf-95b6-2c5451c15b48',
                 organizationId: 'f_ecom_zzpe_007',
-                shortCode: 'kv7kzm78',
+                shortCode: '{YourShortCodeGoesHere}',
                 siteId: 'RefArch'
             }
         },
@@ -109,11 +109,11 @@ module.exports = {
         ssrFunctionNodeVersion: '22.x',
         proxyConfigs: [
             {
-                host: 'kv7kzm78.api.commercecloud.salesforce.com',
+                host: '{YourShortCodeGoesHere}.api.commercecloud.salesforce.com',
                 path: 'api'
             },
             {
-                host: 'zzpe-061.dx.commercecloud.salesforce.com',
+                host: '{YourSandboxRealmGoesHere}.dx.commercecloud.salesforce.com',
                 path: 'ocapi'
             }
         ]
