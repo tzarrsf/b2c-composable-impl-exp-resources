@@ -15,7 +15,7 @@ const LoyaltyDetails = () => {
  queryKey: [params.id],
  queryFn: async () => {
  const token = await getTokenWhenReady()
- return fetch(`${getAppOrigin()}/mobify/proxy/api/custom/loyalty-info/v1/organizations/{OrgID}/customers?c_customer_id=customer1&siteId={siteID}&locale=en-US`, {
+ return fetch(`${getAppOrigin()}/mobify/proxy/api/custom/loyalty-info/v1/organizations/{YourOrganizationId}/customers?c_customer_id=customer1&siteId={YourSiteId}&locale=en-US`, {
  method: 'GET',
  headers: {
  Authorization: `Bearer ${token}`
