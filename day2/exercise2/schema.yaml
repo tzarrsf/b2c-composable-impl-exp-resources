@@ -1,65 +1,65 @@
 openapi: 3.0.0
 info:
- version: 1.0.1
- title: Loyalty Information API
+    version: 1.0.1
+    title: Loyalty Information API
 components:
- securitySchemes:
- ShopperToken:
- type: oauth2
- flows:
- authorizationCode:
- authorizationUrl: https://{YourShortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{YourOrganizationId}/oauth2/authorize
- tokenUrl: https://{YourShortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{YourOrganizationId}/oauth2/token
- scopes:
- c_loyaltyInfo_r: Read loyalty information of a customer
- clientCredentials:
- tokenUrl: https://{YourShortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{YourOrganizationId}/oauth2/token
- scopes:
- c_loyaltyInfo_r: Read loyalty information of a customer
+  securitySchemes:
+    ShopperToken:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{YourShortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{YourOrganizationId}/oauth2/authorize
+          tokenUrl: https://{YourShortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{YourOrganizationId}/oauth2/token
+          scopes:
+            c_loyaltyInfo_r: Read loyalty information of a customer
+        clientCredentials:
+          tokenUrl: https://{YourShortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{YourOrganizationId}/oauth2/token
+          scopes:
+            c_loyaltyInfo_r: Read loyalty information of a customer
 paths:
- /customers:
- get:
- summary: Get loyalty information for customer
- operationId: getLoyaltyInfo
- parameters:
- - in: query
- name: c_customer_id
- required: true
- schema:
- type: string
- - in: query
- name: siteId
- required: true
- schema:
- type: string
- minLength: 1
- - in: query
- name: locale
- required: false
- schema:
- type: string
- minLength: 1
- responses:
- "200":
- description: Shows loyalty information for the customer
- content:
- application/json:
- schema:
- type: object
- properties:
- tier:
- type: string
- points:
- type: integer
- "404":
- description: Shows that the customer is not found
- content:
- application/json:
- examples:
- not_found:
- value:
- {
- "type": "https://api.commercecloud.salesforce.com/documentation/error/v1/custom-errors/customer-not-found",
- }
+  /customers:
+    get:
+      summary: Get loyalty information for customer
+      operationId: getLoyaltyInfo
+      parameters:
+        - in: query
+          name: c_customer_id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: siteId
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: locale
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Shows loyalty information for the customer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tier:
+                    type: string
+                  points:
+                    type: integer
+        "404":
+          description: Shows that the customer is not found
+          content:
+            application/json:
+              examples:
+                not_found:
+                  value:
+                    {
+                      "type": "https://api.commercecloud.salesforce.com/documentation/error/v1/custom-errors/customer-not-found",
+                    }
 security:
- - ShopperToken: ["c_loyaltyInfo_r"]
+  - ShopperToken: ["c_loyaltyInfo_r"]
