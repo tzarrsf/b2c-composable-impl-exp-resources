@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "7b63c693-9022-487e-9fba-8edd45a1aecf",
+		"name": "Simple B2C Custom API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8399406"
+	},
+	"item": [
+		{
+			"name": "Private Client",
+			"item": [
+				{
+					"name": "1a. Guest - Get Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonBody= pm.response.json();\r",
+									"pm.collectionVariables.set(\"accessToken\", jsonBody.access_token);\r",
+									"pm.collectionVariables.set(\"refreshToken\", jsonBody.refresh_token);\r",
+									"pm.collectionVariables.set(\"guestPrivateRefreshToken\", jsonBody.refresh_token);\r",
+									"pm.collectionVariables.set(\"customerDd\", jsonBody.customer_id);\r",
+									"pm.collectionVariables.set(\"usid\", jsonBody.usid);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{privateClientSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{privateClientId}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "{{grantType}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{privateClientId}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{privateClientSecret}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/{{organizationId}}/oauth2/token?channel_id={{siteId}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"shopper",
+								"auth",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"oauth2",
+								"token"
+							],
+							"query": [
+								{
+									"key": "channel_id",
+									"value": "{{siteId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.warn(`URL: ${pm.request.url}`);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/product/shopper-products/v1/organizations/{{organizationId}}/products/25695327M?siteId={{siteId}}",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"product",
+								"shopper-products",
+								"v1",
+								"organizations",
+								"{{organizationId}}",
+								"products",
+								"25695327M"
+							],
+							"query": [
+								{
+									"key": "siteId",
+									"value": "{{siteId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Loyalty Info - Direct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.warn(`URL: ${pm.request.url}`);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shortCode}}.api.commercecloud.salesforce.com/custom/{{apiName}}/{{version}}/organizations/{{organizationId}}/customers?c_customer_id=customer1&siteId={{siteId}}&locale=en-US",
+							"protocol": "https",
+							"host": [
+								"{{shortCode}}",
+								"api",
+								"commercecloud",
+								"salesforce",
+								"com"
+							],
+							"path": [
+								"custom",
+								"{{apiName}}",
+								"{{version}}",
+								"organizations",
+								"{{organizationId}}",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "c_customer_id",
+									"value": "customer1"
+								},
+								{
+									"key": "siteId",
+									"value": "{{siteId}}"
+								},
+								{
+									"key": "locale",
+									"value": "en-US"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Loyalty Info - Proxied",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.warn(`URL: ${pm.request.url}`);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{localDevHost}}/mobify/proxy/api/custom/{{apiName}}/{{version}}/organizations/{{organizationId}}/customers?c_customer_id=customer1&siteId={{siteId}}&locale=en-US",
+							"protocol": "http",
+							"host": [
+								"{{localDevHost}}"
+							],
+							"path": [
+								"mobify",
+								"proxy",
+								"api",
+								"custom",
+								"{{apiName}}",
+								"{{version}}",
+								"organizations",
+								"{{organizationId}}",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "c_customer_id",
+									"value": "customer1"
+								},
+								{
+									"key": "siteId",
+									"value": "{{siteId}}"
+								},
+								{
+									"key": "locale",
+									"value": "en-US"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		},
+		{
+			"key": "guest_private_refresh_token",
+			"value": ""
+		},
+		{
+			"key": "customer_id",
+			"value": ""
+		},
+		{
+			"key": "usid",
+			"value": ""
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "guestPrivateRefreshToken",
+			"value": ""
+		},
+		{
+			"key": "customerDd",
+			"value": ""
+		}
+	]
+}
