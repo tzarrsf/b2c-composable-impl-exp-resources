@@ -6,17 +6,41 @@
  */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const sites = require('./sites.js')
+const {parseSettings} = require('./utils.js')
+
 module.exports = {
     app: {
+        // Enable the store locator and shop the store feature.
+        storeLocatorEnabled: true,
+        // Enable the multi-ship feature.
+        multishipEnabled: true,
+        // Enable partial hydration capabilities via Island component
+        partialHydrationEnabled: false,
+        // Commerce shopping agent configuration for embedded messaging service
+        // This enables an agentic shopping experience in the application
+        // This property accepts either a JSON string or a plain JavaScript object.
+        commerceAgent: parseSettings(process.env.COMMERCE_AGENT_SETTINGS) || {
+            enabled: 'false',
+            askAgentOnSearch: 'false',
+            embeddedServiceName: '',
+            embeddedServiceEndpoint: '',
+            scriptSourceUrl: '',
+            scrt2Url: '',
+            salesforceOrgId: '',
+            commerceOrgId: '',
+            siteId: '',
+            enableConversationContext: 'false',
+            conversationContext: []
+        },
         // Customize settings for your url
-
         url: {
             // Determine where the siteRef is located. Valid values include 'path|query_param|none'. Defaults to: 'none'
             site: 'path',
             // Determine where the localeRef is located. Valid values include 'path|query_param|none'. Defaults to: 'none'
             locale: 'path',
             // This boolean value dictates whether or not default site or locale values are shown in the url. Defaults to: false
-            // showDefaults: false
+            // showDefaults: true,
+            // This boolean value dictates whether the plus sign (+) is interpreted as space for query param string. Defaults to: false
             interpretPlusSignAsSpace: false
         },
         login: {
@@ -64,9 +88,9 @@ module.exports = {
         commerceAPI: {
             proxyPath: '/mobify/proxy/api',
             parameters: {
-                clientId: '{YourClientId}',
-                organizationId: '{YourOrganizationId}',
-                shortCode: '{YourShortCode}',
+                clientId: '09e75e19-f7c9-42ef-8575-d586c6621d9f',
+                organizationId: 'f_ecom_zzpe_051',
+                shortCode: 'kv7kzm78',
                 siteId: 'RefArch'
             }
         },
@@ -109,11 +133,11 @@ module.exports = {
         ssrFunctionNodeVersion: '22.x',
         proxyConfigs: [
             {
-                host: '{YourShortCode}.api.commercecloud.salesforce.com',
+                host: 'kv7kzm78.api.commercecloud.salesforce.com',
                 path: 'api'
             },
             {
-                host: '{YourRealm}.dx.commercecloud.salesforce.com',
+                host: 'zzpe-051.dx.commercecloud.salesforce.com',
                 path: 'ocapi'
             }
         ]
