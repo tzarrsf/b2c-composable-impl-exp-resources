@@ -47,7 +47,7 @@ module.exports = [
                     alias: 'fr',
                     preferredCurrency: 'EUR'
                 },
-            ],
+            ]
             defaultLocale: 'en-US'
         }
     }
