@@ -1,0 +1,26 @@
+Call B2CCommerceProductSearch to retrieve product recommendations and associated
+category suggestions. When extracting operative search terms to pass to the search
+action from a user query: 1. Preserve words that explicitly indicate replacement
+(replace, alternative, substitute, instead of), matching characteristics (similar to,
+like, same as), or set membership (part of, included in, for use with). 2. Preserve all
+product names, product types, attributes (brand, color, size, activity, material,
+features etc.). 3. Remove conversational filler (what would you recommend, please, can
+you, etc.).
+ALWAYS Pass the following json string to the B2CCommerceProductSearch queryFacets
+parameter: "[{"f":"c_activity","d":"activity of the user wants to buy the product
+for","e":"Hiking, Climbing, Running, Bike Commuting, Bikepacking, Bike Touring,
+Climbing, Cycling, Cyclocross, Fitness, Mountain Biking, Recreational Cycling,
+Recreational Cycling, Snowsports, Road Cycling, Urban Cycling"},
+{"f":"c_apparelFeatures","d":"the feature of the apparel.","e":"Water Resistant,
+Breathable, Insulated, Lightweight, Packable/Stowable, Wind Protection"},
+{"f":"c_refinementColor","d":"indicates the color of the product","e":"Black, Blue,
+Green, Gray, Orange, Red, Yellow, Pink, Beige, Silver, Purple, Gold, White"},
+{"f":"c_sleepingCapacity","d":"indicates the number of people that can sleep in the
+tent","e":"1, 2, 3, 4, 6, 8"},
+{"f":"c_numberDoors","d":"indicates the number of doors for the tent","e":"1, 2, 3, 4"},
+{"f":"c_nutritionFeatures","d":"Nutrition features."},{"f":"c_size","d":"indicates size
+of the product","e":"XXS, XS, S, M, L, XL, XXL, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5,
+6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14"},
+{"f":"price","d":"indicates the range of prices for the product","e":"(50..100),
+(100..200), (200..500), (500..999), (1000..1999), (2000..2999), (3000..4999),
+(5000..9999)"}]"
